@@ -17,11 +17,11 @@ import "./category.css";
 function Category() {
   const { category } = useParams(); // Destructure category property from the object returned from useParams()
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.value);
-  const categories = useSelector((state) => state.categories.items)
+  const categories = useSelector((state) => state.categories.items);
   const currentUser = useSelector((state) => state.user.value);
 
   const [products, setProducts] = useState([]);
@@ -30,28 +30,29 @@ function Category() {
     setProducts(categories[category]);
   }, [category, categories]);
 
-  const addToCartClick = (productData) => {
+  const addToCartClick = (e, productData) => {
+    e.stopPropagation();
+
     if (currentUser) {
       const existingProduct = cartItems.find(
         (product) => product?.id === productData.id
       );
-  
+
       if (existingProduct) {
         dispatch(addPresentItemsToCart(productData));
       } else {
         dispatch(addNewItemsToCart(productData));
       }
 
-      toast.success(productData.name + " added to cart")
+      toast.success(productData.name + " added to cart");
     } else {
-      navigate("/authentication")
+      navigate("/authentication");
     }
-    
   };
 
   return (
     <>
-    <Toaster />
+      <Toaster />
       <h2 className="category-title">{category.toUpperCase()}</h2>
       <div className="category-container">
         {products?.map((product) => {
@@ -61,7 +62,8 @@ function Category() {
               image={product.imageUrl}
               name={product.name}
               price={product.price}
-              addToCartClick={() => addToCartClick(product)}
+              addToCartClick={(e) => addToCartClick(e, product)}
+              productID={product.id}
             />
           );
         })}

@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 
 import CategoriesPreview from "../../components/categories-preview/CategoriesPreview";
 import Category from "../category/Category";
+import SingleProduct from "../singleProduct/SingleProduct";
 
 
 function Shop() {
@@ -48,6 +49,7 @@ useEffect(() => {
     <Routes>
       <Route index element={<CategoriesPreview />} />
       <Route path=":category" element={<Category />} /> {/* This path means that category is variable (dynamic Routing) */}
+      <Route path="product/:productID" element={<SingleProduct />} />
     </Routes>
   );
 }
