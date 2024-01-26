@@ -8,7 +8,6 @@ import { Routes, Route } from "react-router-dom";
 
 import Spinner from "./components/spinner/Spinner";
 
-
 const NavigationBar = lazy(() => import("./routes/navigationBar/NavigationBar"))
 const Home = lazy(() => import("./routes/home/Home"))
 const Authentication = lazy(() => import("./routes/authentication/Authentication"))
@@ -18,6 +17,7 @@ const Checkout = lazy(() => import("./routes/checkout/Checkout"))
 
 const MenCategories = lazy(() => import("./routes/menCategories/MenCategories"))
 const WomenCategories = lazy(() => import("./routes/womenCategories/WomenCategories"))
+const OrderCompleted = lazy(() => import("./routes/orderCompleted/OrderCompleted"))
 
 const App = () => {
 
@@ -47,6 +47,8 @@ useEffect(() => {  // The firebase method that watches the Authentication state 
 
           <Route path="men-categories" element={<MenCategories />} />
           <Route path="women-categories" element={<WomenCategories />} />
+
+          <Route path="order-completed" element={<OrderCompleted />} />
         </Route>
       </Routes>
     )}

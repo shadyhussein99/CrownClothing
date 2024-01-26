@@ -7,8 +7,9 @@
   box-shadow: 0px 20px 20px -20px rgba(0, 0, 0, 0.15);
   position: sticky;
   top: 0;
-  background-color: white;
+  background-color: #232f3e;
   z-index: 1000;
+  padding-inline: 2.8em;
 }
 .navigation .logo-container {
   height: 100%;
@@ -24,11 +25,14 @@
   align-items: center;
   justify-content: flex-end;
   gap: 20px;
+  color: white;
+  font-weight: 700;
 }
 .navigation .nav-links-container .nav-link {
   padding: 7px 15px;
   cursor: pointer;
   transition: 300ms;
+  color: white;
 
   &:hover {
     transform: translate(4px, -3px);
@@ -36,13 +40,14 @@
 }
 
 .navigation .nav-links-container .auth-link {
-  border: 1px solid grey;
+  border: 1px solid white;
   border-radius: 10px;
   min-width: fit-content;
   transition: 300ms;
 
   &:hover {
-    background-color: rgb(245, 244, 244);
+    background-color: white;
+    color: #232f3e;
   }
 }
 
@@ -53,10 +58,12 @@
   border: none;
 }
 
-.footer {
+.app-footer {
   display: flex;
   gap: 30px;
   max-width: 100%;
+  background-color: #232f3e;
+  padding-inline: 5em;
 }
 
 .footer-link {
@@ -65,13 +72,19 @@
   gap: 8px;
   margin-block: 25px;
   cursor: pointer;
+  color: white;
+  font-weight: 700;
 }
 
-@media (max-width: 650px) {
-  .footer {
+@media (max-width: 800px) {
+  .app-footer {
     display: block;
+    padding-block: 1px;
   }
+}
 
+
+@media (max-width: 650px) {
   .footer-link {
     margin-block: 15px;
   }

@@ -28,6 +28,8 @@ function Checkout() {
   const [displayPaymentForm, setdisplayPaymentForm] = useState(true);
   const [enableOnlinePayment, setEnableOnlinePayment] = useState(false);
 
+  const priceWithShipping = cartTotalPrice * 0.02 + cartTotalPrice;
+
   const clearItem = (productData) => {
     dispatch(clearItemsFromCart(productData));
   };
@@ -127,7 +129,22 @@ function Checkout() {
             );
           })}
 
-          <span className="total">Total: ${cartTotalPrice}</span>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "5PX",
+              fontSize: "1.3rem",
+              marginTop: "20px",
+              marginLeft: "auto",
+            }}
+          >
+            <span>${cartTotalPrice} (including VAT)</span>
+            <span>+ 2% shipping</span>
+          </div>
+          <span className="total" style={{ marginTop: "10px" }}>
+            Total: ${priceWithShipping}
+          </span>
         </>
       )}
 

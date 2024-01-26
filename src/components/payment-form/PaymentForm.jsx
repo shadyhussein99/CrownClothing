@@ -3,6 +3,8 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"; /
 import { useState } from "react";
 
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast";
 
 import Button from "../button/Button";
 
@@ -13,6 +15,7 @@ function PaymentForm() {
 
   const stripe = useStripe();
   const elements = useElements();
+  const navigate = useNavigate()
 
   const currentUser = useSelector((state) => state.user.value);
   const cartTotalPrice = useSelector((state) => state.cart.cartTotalPrice);
@@ -76,6 +79,7 @@ function PaymentForm() {
 
   return (
     <div className="payment-form-container">
+      <Toaster />
       <div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div>
@@ -117,6 +121,7 @@ function PaymentForm() {
               marginTop: "30px",
             }}
             buttonName="Place Order"
+            onClick={() => deliveryValue ? navigate("/order-completed") : toast.error("Please choose Payment Method")}
           />
         </div>
       </div>
