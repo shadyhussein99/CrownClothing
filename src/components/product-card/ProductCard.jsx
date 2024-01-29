@@ -1,12 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addPresentItemsToCart,
-  addNewItemsToCart,
-} from "../../redux/cartSlice";
-
 import { useNavigate } from "react-router-dom";
-
-import Button from "../button/Button";
 
 import "./productCard.css";
 
@@ -19,8 +11,6 @@ function ProductCard(props) {
         <span className="name">{props.name}</span>
         <span className="price">${props.price}</span>
       </div>
-
-      <Button onClick={props.addToCartClick} buttonName="Add To Cart" buttonType="inverted" />
     </div>
   );
 }

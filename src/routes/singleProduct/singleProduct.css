@@ -21,8 +21,9 @@
 }
 
 .product_heading {
-    font-size: 2.5rem;
+    font-size: 2rem;
     margin-block: 0;
+    line-height: 1.5;
 }
 
 .product_quantity {
@@ -41,6 +42,26 @@
 
 .details_value {
     font-size: 1.2rem;
+}
+
+.details_quantity {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-left: 7px;
+}
+
+.details_button {
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 4px 10px;
+    transition: 500ms;
+
+    &:hover {
+        background-color: grey;
+    }
 }
 
 .single_product_add_button {

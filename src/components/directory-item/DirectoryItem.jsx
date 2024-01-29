@@ -4,7 +4,6 @@ import "./directoryItem.css";
 
 function DirectoryItem(props) {
   const navigate = useNavigate();
-
   return (
     <div
       onClick={() => navigate(props.navigation)}  // Temporary
