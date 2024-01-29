@@ -28,7 +28,7 @@ function Checkout() {
   const [displayPaymentForm, setdisplayPaymentForm] = useState(true);
   const [enableOnlinePayment, setEnableOnlinePayment] = useState(false);
 
-  const priceWithShipping = cartTotalPrice + 3;
+  const priceWithShipping = cartTotalPrice + 20;
 
   const clearItem = (productData) => {
     dispatch(clearItemsFromCart(productData));
@@ -149,11 +149,11 @@ function Checkout() {
                   marginLeft: "auto",
                 }}
               >
-                <span>${cartTotalPrice}</span>
-                <span>+ 3$ shipping</span>
+                <span>{cartTotalPrice} LE</span>
+                <span>+ 20 LE shipping</span>
               </div>
               <span className="total" style={{ marginTop: "10px" }}>
-                Total: ${priceWithShipping}
+                Total: {priceWithShipping} LE
               </span>
             </>
           )}

@@ -150,6 +150,14 @@ function ShippingDetails(props) {
             >
               <option hidden>Choose Region</option>
               <option value="zamalek">Zamalek</option>
+              <option value="zamalek">Dokki</option>
+              <option value="zamalek">Abbasia</option>
+              <option value="zamalek">Madinet Nasr</option>
+              <option value="zamalek">Mohandesin</option>
+              <option value="zamalek">Shubra</option>
+              <option value="zamalek">Madinaty</option>
+              <option value="zamalek">Al Sherouq</option>
+              <option value="zamalek">Al Rehab</option>
             </select>
             <span className="err-message">
               {errors.region && errors.region.message}

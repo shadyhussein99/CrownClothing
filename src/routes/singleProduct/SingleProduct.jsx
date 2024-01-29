@@ -93,7 +93,7 @@ function SingleProduct() {
             <p className="product_details">
               <span className="details_description">Price:</span>{" "}
               <span className="details_value">
-                {singleProduct.price}${" "}
+                {singleProduct.price} LE{" "}
                 <span style={{ fontWeight: "bold" }}>( including VAT)</span>
               </span>
             </p>
@@ -123,6 +123,7 @@ function SingleProduct() {
                       className="details_button"
                       style={{
                         backgroundColor: colorChosen === color && color,
+                        color: colorChosen === color && colorChosen === "Black" ? "white" : "black"
                       }}
                       key={index}
                       onClick={() => setColorChosen(color)}

@@ -8,6 +8,7 @@
   margin: 10px 0;
 }
 .sign-up-container .buttons-container {
+  width: 85%;
   display: flex;
   justify-content: space-between;
 }
