@@ -10,12 +10,12 @@ import Button from "../button/Button";
 
 import "./paymentForm.css";
 
-function PaymentForm() {
+function PaymentForm({ cartItems }) {
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const currentUser = useSelector((state) => state.user.value);
   const cartTotalPrice = useSelector((state) => state.cart.cartTotalPrice);
@@ -77,13 +77,25 @@ function PaymentForm() {
     setPaymentMethod("delivery");
   };
 
+  const handlePlaceOrder = () => {
+    if (paymentMethod && cartItems.length > 0) {
+      navigate("/order-completed");
+    } else if (!paymentMethod) {
+      toast.error("Please choose Payment Method");
+    } else if (cartItems.length === 0) {
+      toast.error("Your Cart is Empty");
+    }
+  };
+
   return (
     <div className="payment-form-container">
       <Toaster />
       <div>
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div>
-            <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+            <div
+              style={{ display: "flex", gap: "10px", justifyContent: "center" }}
+            >
               <input
                 type="radio"
                 value="credit"
@@ -104,14 +116,16 @@ function PaymentForm() {
             )}
           </div>
 
-          <div style={{ display: "flex", gap: "10px", justifyContent: "center" }}>
+          <div
+            style={{ display: "flex", gap: "10px", justifyContent: "center" }}
+          >
             <input
               type="radio"
               value="delivery"
               onChange={handleDelivery}
               checked={deliveryValue === "delivery"}
             />
-            <h2 >Cash On Delivery</h2>
+            <h2>Cash On Delivery</h2>
           </div>
 
           <Button
@@ -121,7 +135,7 @@ function PaymentForm() {
               marginTop: "30px",
             }}
             buttonName="Place Order"
-            onClick={() => deliveryValue ? navigate("/order-completed") : toast.error("Please choose Payment Method")}
+            onClick={handlePlaceOrder}
           />
         </div>
       </div>

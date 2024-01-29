@@ -26,34 +26,19 @@ function Category() {
 
   const [products, setProducts] = useState([]);
 
+  const formattedTitle =
+    category === "t-shirts"
+      ? category // If the title is "t-shirts", keep it as is
+      : category.replace("-", " "); // Replace "-" with space for other titles
+
   useEffect(() => {
     setProducts(categories[category]);
   }, [category, categories]);
 
-  const addToCartClick = (e, productData) => {
-    e.stopPropagation();
-
-    if (currentUser) {
-      const existingProduct = cartItems.find(
-        (product) => product?.id === productData.id
-      );
-
-      if (existingProduct) {
-        dispatch(addPresentItemsToCart(productData));
-      } else {
-        dispatch(addNewItemsToCart(productData));
-      }
-
-      toast.success(productData.name + " added to cart");
-    } else {
-      navigate("/authentication");
-    }
-  };
-
   return (
     <>
       <Toaster />
-      <h2 className="category-title">{category.toUpperCase()}</h2>
+      <h2 className="category-title">{formattedTitle.toUpperCase()}</h2>
       <div className="category-container">
         {products?.map((product) => {
           return (
@@ -62,7 +47,6 @@ function Category() {
               image={product.imageUrl}
               name={product.name}
               price={product.price}
-              addToCartClick={(e) => addToCartClick(e, product)}
               productID={product.id}
             />
           );

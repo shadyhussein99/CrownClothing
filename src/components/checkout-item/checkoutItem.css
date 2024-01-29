@@ -20,6 +20,13 @@
 .checkout-item-container .price {
   width: 23%;
 }
+.checkout_details {
+  display: flex;
+  flex-direction: column;
+}
+.checkout_values {
+  font-weight: bold;
+}
 .checkout-item-container .quantity {
   display: flex;
 }

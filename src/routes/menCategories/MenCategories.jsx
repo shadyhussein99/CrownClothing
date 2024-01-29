@@ -4,29 +4,35 @@ function MenCategories() {
   const categories = [
     {
       id: 1,
-      title: "hats",
+      title: "men-hats",
       imageUrl: "https://i.ibb.co/cvpntL1/hats.png",
     },
     {
       id: 2,
-      title: "jackets",
+      title: "men-jackets",
       imageUrl: "https://i.ibb.co/px2tCc3/jackets.png",
     },
     {
       id: 3,
-      title: "sneakers",
+      title: "men-sneakers",
       imageUrl: "https://i.ibb.co/0jqHpnp/sneakers.png",
     },
-    // {
-    //   id: 4,
-    //   title: 'womens',
-    //   imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
-    // },
-    // {
-    //   id: 5,
-    //   title: 'mens',
-    //   imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
-    // },
+    {
+      id: 4,
+      title: "men-trousers",
+      imageUrl:
+        "https://w7.pngwing.com/pngs/621/646/png-transparent-khaki-pants-pocket-m-men-s-trousers.png",
+    },
+    {
+      id: 5,
+      title: "shirts",
+      imageUrl: "https://i.ibb.co/VpW4x5t/roll-up-jean-shirt.png",
+    },
+    {
+      id: 6,
+      title: "t-shirts",
+      imageUrl: "https://i.ibb.co/55z32tw/long-sleeve.png",
+    },
   ];
 
   // Temporary

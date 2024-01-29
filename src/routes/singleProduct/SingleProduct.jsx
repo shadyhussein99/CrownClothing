@@ -18,20 +18,44 @@ function SingleProduct() {
   const currentUser = useSelector((state) => state.user.value);
   const cartItems = useSelector((state) => state.cart.value);
   const [singleProduct, setSingleProduct] = useState({});
+  const [sizeChosen, setSizeChosen] = useState("");
+  const [colorChosen, setColorChosen] = useState("");
 
   const addToCartClick = (productData) => {
     if (currentUser) {
-      const existingProduct = cartItems.find(
-        (product) => product?.id === productData.id
-      );
+      if (sizeChosen && colorChosen) {
+        const existingProduct = cartItems.find(
+          (product) => product?.id === productData.id
+        );
 
-      if (existingProduct) {
-        dispatch(addPresentItemsToCart(productData));
+        if (existingProduct) {
+          dispatch(
+            addPresentItemsToCart({
+              ...productData,
+              color: colorChosen,
+              sizes: sizeChosen
+            })
+          );
+        } else {
+          dispatch(
+            addNewItemsToCart({
+              ...productData,
+              color: colorChosen,
+              sizes: sizeChosen
+            })
+          );
+        }
+
+        toast.success(productData.name + " added to cart");
       } else {
-        dispatch(addNewItemsToCart(productData));
+        if (!sizeChosen && !colorChosen) {
+          toast.error("Please choose Size and Color");
+        } else if (!sizeChosen) {
+          toast.error("Please choose Size");
+        } else if (!colorChosen) {
+          toast.error("Please choose Color");
+        }
       }
-
-      toast.success(productData.name + " added to cart");
     } else {
       navigate("/authentication");
     }
@@ -59,21 +83,61 @@ function SingleProduct() {
           </div>
 
           <div className="description_container">
-            <h1 className="product_heading">{singleProduct.name}</h1>
-            <h4 className="product_quantity">
-              Remaining 8 pieces in the stock
-            </h4>
+            <h3 className="product_heading">{singleProduct.description}</h3>
+
+            <p className="product_details">
+              <span className="details_description">Product Name:</span>{" "}
+              <span className="details_value">{singleProduct.name}</span>
+              <span className="details_quantity">({singleProduct.quantity} pieces left in the stock)</span>
+            </p>
             <p className="product_details">
               <span className="details_description">Price:</span>{" "}
-              <span className="details_value">{singleProduct.price}$</span>
+              <span className="details_value">
+                {singleProduct.price}${" "}
+                <span style={{ fontWeight: "bold" }}>( including VAT)</span>
+              </span>
+            </p>
+            <p className="product_details">
+              <span className="details_description">Sizes:</span>{" "}
+              <span className="details_value">
+                {singleProduct?.sizes?.map((size, index) => {
+                  return (
+                    <button
+                      className="details_button"
+                      style={{ backgroundColor: sizeChosen === size && "grey" }}
+                      key={index}
+                      onClick={() => setSizeChosen(size)}
+                    >
+                      {size}
+                    </button>
+                  );
+                })}
+              </span>
+            </p>
+            <p className="product_details">
+              <span className="details_description">Colors:</span>{" "}
+              <span className="details_value">
+                {singleProduct?.color?.map((color, index) => {
+                  return (
+                    <button
+                      className="details_button"
+                      style={{
+                        backgroundColor: colorChosen === color && color,
+                      }}
+                      key={index}
+                      onClick={() => setColorChosen(color)}
+                    >
+                      {color}
+                    </button>
+                  );
+                })}
+              </span>
             </p>
             <p className="product_details">
               <span className="details_description">Material:</span>{" "}
-              <span className="details_value">Cotton</span>
-            </p>
-            <p className="product_details">
-              <span className="details_description">Colour:</span>{" "}
-              <span className="details_value">Black</span>
+              <span className="details_value">
+                {singleProduct.materialType}
+              </span>
             </p>
 
             <Button

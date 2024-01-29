@@ -28,7 +28,7 @@ function Checkout() {
   const [displayPaymentForm, setdisplayPaymentForm] = useState(true);
   const [enableOnlinePayment, setEnableOnlinePayment] = useState(false);
 
-  const priceWithShipping = cartTotalPrice * 0.02 + cartTotalPrice;
+  const priceWithShipping = cartTotalPrice + 3;
 
   const clearItem = (productData) => {
     dispatch(clearItemsFromCart(productData));
@@ -122,6 +122,8 @@ function Checkout() {
                 name={product.name}
                 quantity={product.quantity}
                 price={product.price}
+                color={product.color}
+                sizes={product.sizes}
                 decreaseQuantity={() => decreaseQuantity(product)}
                 increaseQuantity={() => increaseQuantity(product)}
                 clearItem={() => clearItem(product)}
@@ -129,22 +131,32 @@ function Checkout() {
             );
           })}
 
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "5PX",
-              fontSize: "1.3rem",
-              marginTop: "20px",
-              marginLeft: "auto",
-            }}
-          >
-            <span>${cartTotalPrice} (including VAT)</span>
-            <span>+ 2% shipping</span>
-          </div>
-          <span className="total" style={{ marginTop: "10px" }}>
-            Total: ${priceWithShipping}
-          </span>
+          {cartItems.length === 0 ? (
+            <div>
+              <p style={{ fontSize: "1.5rem", fontWeight: "bold" }}>
+                No Items in the Cart
+              </p>
+            </div>
+          ) : (
+            <>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "5PX",
+                  fontSize: "1.3rem",
+                  marginTop: "20px",
+                  marginLeft: "auto",
+                }}
+              >
+                <span>${cartTotalPrice}</span>
+                <span>+ 3$ shipping</span>
+              </div>
+              <span className="total" style={{ marginTop: "10px" }}>
+                Total: ${priceWithShipping}
+              </span>
+            </>
+          )}
         </>
       )}
 
@@ -172,7 +184,7 @@ function Checkout() {
               {displayPaymentForm ? <span>&#9660;</span> : <span>&#9650;</span>}
             </div>
           </div>
-          {displayPaymentForm && <PaymentForm />}
+          {displayPaymentForm && <PaymentForm cartItems={cartItems} />}
         </>
       )}
     </div>

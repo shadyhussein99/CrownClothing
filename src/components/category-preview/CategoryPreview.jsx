@@ -14,23 +14,6 @@ function CategoryPreview(props) {
   const cartItems = useSelector((state) => state.cart.value);
   const currentUser = useSelector((state) => state.user.value);
 
-  const addToCartClick = (productData) => {
-    if (currentUser) {
-      const existingProduct = cartItems.find(
-        (product) => product?.id === productData.id
-      );
-  
-      if (existingProduct) {
-        dispatch(addPresentItemsToCart(productData));
-      } else {
-        dispatch(addNewItemsToCart(productData));
-      }
-    } else {
-      navigate("/authentication")
-    }
-    
-  };
-
   return (
     <div className="category-preview-container">
       <h2>
@@ -45,7 +28,6 @@ function CategoryPreview(props) {
             image={product.imageUrl}
             name={product.name}
             price={product.price}
-            addToCartClick={() => addToCartClick(product)}
           />
         ))}
       </div>
