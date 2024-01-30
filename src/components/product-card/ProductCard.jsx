@@ -9,7 +9,7 @@ function ProductCard(props) {
       <img loading="lazy" src={props.image} alt="product-image" />
       <div className="footer">
         <span className="name">{props.name}</span>
-        <span className="price">${props.price}</span>
+        <span className="price">{props.price} LE</span>
       </div>
     </div>
   );
