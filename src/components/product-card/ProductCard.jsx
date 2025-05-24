@@ -7,6 +7,7 @@ function ProductCard(props) {
   return (
     <div className="product-card-container" onClick={() => navigate(`/shop/product/${props.productID}`)}>
       <img loading="lazy" src={props.image} alt="product-image" />
+      
       <div className="footer">
         <span className="name">{props.name}</span>
         <span className="price">{props.price} LE</span>
