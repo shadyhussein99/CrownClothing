@@ -33,11 +33,11 @@ jobs:
 
       - name: Run unit tests
         run: npm test -- --watchAll=false # If we stop here the worklow will fail if any test fail and PR couldn't be merged, but we want to give just a warning and allow PR merge, so we add the following lines
-        continue-on-error: true
+      #   continue-on-error: true
 
-      - name: Check if tests failed and warn
-        if: failure()
-        run: echo "::warning::Some unit tests failed. Please review the logs above."
+      # - name: Check if tests failed and warn
+      #   if: failure()
+      #   run: echo "::warning::Some unit tests failed. Please review the logs above."
 
       # - name: Comment on PR if tests fail # Add comment on PR if test fails
       #   if: steps.run-tests.outcome != 'success'
