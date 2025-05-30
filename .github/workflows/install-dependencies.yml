@@ -6,7 +6,7 @@ on:
       fallback-node-version:
         required: false
         type: string
-        default: '18'
+        default: "18"
 
 jobs:
   install:
@@ -16,23 +16,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-    # Read node version from .nvmrc file and fallback to the default node version defined if fails to get the node version from .nvmrc file
+      # Read node version from .nvmrc file and fallback to the default node version defined if fails to get the node version from .nvmrc file
       - name: Read Node version from .nvmrc
         id: nvm
         run: |
-           echo "NODE_VERSION=${{ inputs.fallback-node-version }}" >> $GITHUB_ENV
+          if [ -f .nvmrc ]; then
+            echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
+          else
+            echo "NODE_VERSION=${{ inputs.fallback-node-version }}" >> $GITHUB_ENV
+          fi
 
-        # run: |
-        #   if [ -f .nvmrc ]; then
-        #     echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
-        #   else
-        #     echo "NODE_VERSION=${{ inputs.fallback-node-version }}" >> $GITHUB_ENV
-        #   fi
-  
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
+          node-version: ${{ steps.nvm.outputs.NODE_VERSION }}
 
       - name: Cache node modules
         uses: actions/cache@v3
@@ -41,13 +38,12 @@ jobs:
           path: ~/.npm
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-node- 
+            ${{ runner.os }}-node-
 
-  # Get dependencies from cached instead of installing it everytime to save time
-      - name:  Node.js version used in CI
+      # Print the node version used in the CI for debugging purposes
+      - name: Node.js version used in CI
         run: |
           echo "Node.js version used in CI: $(node -v)"
-          
 
       - name: Install dependencies
         run: npm ci # Get dependencies from cached instead of installing it everytime to save time
