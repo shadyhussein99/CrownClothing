@@ -6,7 +6,13 @@ on:
       - main
 
 jobs:
-  test:
+   install-deps:
+    uses: ./.github/workflows/install-dependencies.yml
+    with:
+      fallback-node-version: '18'
+
+   test:
+    needs: install-deps
     runs-on: ubuntu-latest
 
     steps:
@@ -16,25 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION || '18' }} # A fallback to node v.18 if fails to get the node version from .nvmrc file
-
-      - name: Cache node modules
-        uses: actions/cache@v3
-        id: npm-cache
-        with:
-          path: |
-            ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install dependencies
-        run: npm ci # Get dependencies from cached instead of installing it everytime to save time
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Run unit tests
-        run: npm test -- --watchAll=false # If we stop here the worklow will fail if any test fail and PR couldn't be merged, but we want to give just a warning and allow PR merge, so we add the following lines
-      #   continue-on-error: true
-
-      # - name: Check if tests failed and warn
-      #   if: failure()
-      #   run: echo "::warning::Some unit tests failed. Please review the logs above."
+        run: npm test -- --watchAll=false
